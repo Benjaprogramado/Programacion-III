@@ -2,8 +2,8 @@
 
 require_once "./usuario.php";
 require_once "./precios.php";
-require_once "./profesor.php";
-require_once "./asignacion.php";
+// require_once "./profesor.php";
+// require_once "./asignacion.php";
 require_once "./jwt.php";
 
 require __DIR__ . '/vendor/autoload.php';
@@ -85,35 +85,35 @@ switch ($method) {
                 break;
 
             case "/ingreso":
-                if (isset($_POST['legajo']) && isset($_POST['nombre'])) {
-                    $profesor = new Profesor($_POST['legajo'], $_POST['nombre']);
-                    $listaDatos = Profesor::readProfeJson();
-                    $legajo = $profesor->_legajo;
-                    $nombre = $profesor->_nombre;
+                // if (isset($_POST['legajo']) && isset($_POST['nombre'])) {
+                //     $profesor = new Profesor($_POST['legajo'], $_POST['nombre']);
+                //     $listaDatos = Profesor::readProfeJson();
+                //     $legajo = $profesor->_legajo;
+                //     $nombre = $profesor->_nombre;
 
-                    if (empty($listaDatos)) {
-                        Profesor::saveProfeJson($profesor);
-                        echo "Se grabo el profesor";
-                        return true;
-                    } else {
-                        foreach ($listaDatos as $dato) {
-                            //echo "entro a foreach";
-                            if ($dato->_legajo == $legajo) {
-                                echo "El profesor no se puede repetir";
-                                return false;
-                            } else {
-                                Profesor::saveProfeJson($profesor);
-                                echo "Se grabo el profesor";
-                                return true;
-                            }
-                        }
-                    }
-                } else {
-                    echo "FALTAN DATOS DEL PROFESOR";
-                }
+                //     if (empty($listaDatos)) {
+                //         Profesor::saveProfeJson($profesor);
+                //         echo "Se grabo el profesor";
+                //         return true;
+                //     } else {
+                //         foreach ($listaDatos as $dato) {
+                //             //echo "entro a foreach";
+                //             if ($dato->_legajo == $legajo) {
+                //                 echo "El profesor no se puede repetir";
+                //                 return false;
+                //             } else {
+                //                 Profesor::saveProfeJson($profesor);
+                //                 echo "Se grabo el profesor";
+                //                 return true;
+                //             }
+                //         }
+                //     }
+                // } else {
+                //     echo "FALTAN DATOS DEL INGRESO";
+                // }
 
                 break;
-            case "/asignacion":
+            case "/ingreso":
                 // if (isset($_POST['legajo']) && isset($_POST['id']) && isset($_POST['turno'])) {
                 //     $legajo = $_POST['legajo'];
                 //     $id = $_POST['id'];
@@ -154,48 +154,50 @@ switch ($method) {
             default:
                 # code...
                 break;
+            case "/retiro":
+                break;
         }
         break;
     case 'GET': //LISTA RECURSOS
         switch ($path_info) {
-            // case '/materia':
-            //     $materias = Materia::readMateriaJson();
-            //     echo "MATERIAS: ";
-            //     foreach ($materias as $item) {
-            //         $m = new Materia($item->_id, $item->_nombre, $item->_cuatrimestre);
-            //         echo "\n ID: " . $m->_id . "  NOMBRE: " . $m->_nombre . "  CUATRIMESTRE: " . $m->_cuatrimestre;
-            //     }
-            //     break;
-            // case '/profesor':
-            //     $profesores = Profesor::readProfeJson();
-            //     echo "PROFESORES: <br>";
-            //     foreach ($profesores as $item) {
-            //         $p = new Profesor($item->_legajo, $item->_nombre);
-            //         echo "\n LEGAJO: " . $p->_legajo . "  NOMBRE: " . $p->_nombre;
-            //     }
-            //     break;
-            // case '/asignacion':
-            //     $profesores = Profesor::readProfeJson();
-            //     $materias = Materia::readMateriaJson();
-            //     $asignaciones = Asignacion::readAsignacionJson();
+                // case '/materia':
+                //     $materias = Materia::readMateriaJson();
+                //     echo "MATERIAS: ";
+                //     foreach ($materias as $item) {
+                //         $m = new Materia($item->_id, $item->_nombre, $item->_cuatrimestre);
+                //         echo "\n ID: " . $m->_id . "  NOMBRE: " . $m->_nombre . "  CUATRIMESTRE: " . $m->_cuatrimestre;
+                //     }
+                //     break;
+                // case '/profesor':
+                //     $profesores = Profesor::readProfeJson();
+                //     echo "PROFESORES: <br>";
+                //     foreach ($profesores as $item) {
+                //         $p = new Profesor($item->_legajo, $item->_nombre);
+                //         echo "\n LEGAJO: " . $p->_legajo . "  NOMBRE: " . $p->_nombre;
+                //     }
+                //     break;
+                // case '/asignacion':
+                //     $profesores = Profesor::readProfeJson();
+                //     $materias = Materia::readMateriaJson();
+                //     $asignaciones = Asignacion::readAsignacionJson();
 
-            //     foreach ($asignaciones as $asignacion) {
-            //         $texto = "Turno: $asignacion->_turno \n";
-            //         foreach ($profesores as $profesor) {
-            //             if ($profesor->_legajo == $asignacion->_legajo) {
-            //                 $p = new Profesor($profesor->_legajo, $profesor->_nombre);
-            //                 $texto = $texto . "PROFESOR: " . $p;
-            //             }
-            //         }
+                //     foreach ($asignaciones as $asignacion) {
+                //         $texto = "Turno: $asignacion->_turno \n";
+                //         foreach ($profesores as $profesor) {
+                //             if ($profesor->_legajo == $asignacion->_legajo) {
+                //                 $p = new Profesor($profesor->_legajo, $profesor->_nombre);
+                //                 $texto = $texto . "PROFESOR: " . $p;
+                //             }
+                //         }
 
-            //         foreach ($materias as $materia) {
-            //             if ($materia->_id == $asignacion->_id) {
-            //                 $m = new Materia($materia->_id, $materia->_nombre, $materia->_cuatrimestre);
-            //                 $texto = $texto . "MATERIA: " . $m;
-            //             }
-            //         }
-            //         echo $texto . PHP_EOL;
-            //     }
+                //         foreach ($materias as $materia) {
+                //             if ($materia->_id == $asignacion->_id) {
+                //                 $m = new Materia($materia->_id, $materia->_nombre, $materia->_cuatrimestre);
+                //                 $texto = $texto . "MATERIA: " . $m;
+                //             }
+                //         }
+                //         echo $texto . PHP_EOL;
+                //     }
                 // break;
 
             default:
